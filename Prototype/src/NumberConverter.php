@@ -25,7 +25,7 @@ class NumberConverter implements ConverterInterface{
     }
 
     public function BitwiseAnd(int $other): int{
-        return $this->number & $other;
+        return  $this->number & $other;
     }
 
     public function BitwiseOr(int $other): int{
@@ -40,11 +40,11 @@ class NumberConverter implements ConverterInterface{
         return ~$this->number;
     }
 
-    public function ShiftLeft(int $positions): int{
+    public function ShiftLeft(int $postions): int{
         return $this->number << $positions;
     }
 
-    public function ShiftRight(int $positions): int{
+    public function ShiftRight(int $postions): int{
         return $this->number >> $positions;
     }
 }
