@@ -1,5 +1,5 @@
 {
-  "name": "fuji/converter",
+  "name": "solicode/converter",
   "description": "CLI tool to convert numbers to decimal, binary, and hexadecimal",
   "autoload": {
     "psr-4": {
