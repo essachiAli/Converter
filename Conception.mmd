@@ -54,8 +54,3 @@ classDiagram
         +formatBinary(num: int): string
         +formatTable(data: array): string
     }
-
-    ConverterInterface <|.. Converter : implements
-    CalculatorInterface <|.. Calculator : implements
-    Calculator --> BitwiseTrait : uses
-    CliApplication --> Helpers : uses
