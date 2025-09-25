@@ -2,49 +2,44 @@
 
 namespace App;
 
-class NumberConverter implements ConverterInterface{
-
+class NumberConverter implements ConverterInterface
+{
     use FormatterTrait;
 
     private int $number;
 
-    public function __construct(int $number){
+    public function __construct(int $number)
+    {
         $this->number = $number;
     }
 
-    public function toDecimal(): int{
+    public function toDecimal(): int
+    {
         return $this->number;
     }
 
-    public function toBinary(): string{
+    public function toBinary(): string
+    {
         return decbin($this->number);
     }
 
-    public function toHexa(): string{
-        return strtoupper(dechex($this->number));
-    }
-
-    public function BitwiseAnd(int $other): int{
+    public function bitwiseAnd(int $other): int
+    {
         return $this->number & $other;
     }
 
-    public function BitwiseOr(int $other): int{
+    public function bitwiseOr(int $other): int
+    {
         return $this->number | $other;
     }
 
-    public function BitwiseXor(int $other): int{
+    public function bitwiseXor(int $other): int
+    {
         return $this->number ^ $other;
     }
 
-    public function BitwiseNot(): int{
+    public function bitwiseNot(): int
+    {
         return ~$this->number;
-    }
-
-    public function ShiftLeft(int $positions): int{
-        return $this->number << $positions;
-    }
-
-    public function ShiftRight(int $positions): int{
-        return $this->number >> $positions;
     }
 }

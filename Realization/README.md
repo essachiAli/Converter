@@ -1,19 +1,18 @@
 # Number Converter CLI
 
-A PHP command-line tool for converting numbers between different bases (decimal, binary, hexadecimal) and performing bitwise operations.
+A PHP command-line tool for converting numbers to decimal and binary formats, performing bitwise operations, and optionally outputting results in JSON.
 
 ## Features
 
-- Convert numbers to decimal, binary, and hexadecimal formats
+- Convert numbers to decimal and binary
 - Perform bitwise operations:
-  - AND (`--and`)
-  - OR (`--or`)
-  - XOR (`--xor`)
-  - NOT (`--not`)
-  - Shift Left (`--shift-left`)
-  - Shift Right (`--shift-right`)
-- Clean, formatted output
-- Support for both direct PHP execution and Composer scripts
+  - AND
+  - OR
+  - XOR
+  - NOT
+- Normal terminal output or JSON output for automated scripts
+- Works directly with PHP or via Composer scripts
+- Composer script clears previous JSON output automatically
 
 ## Requirements
 
@@ -23,162 +22,149 @@ A PHP command-line tool for converting numbers between different bases (decimal,
 ## Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/essachiAli/Converter
-cd Converter/Prototype
+cd Converter/Realisation
 ```
 
 2. Install dependencies:
+
 ```bash
 composer install
 ```
 
+## Quick Start
+
+### Direct PHP execution (terminal output):
+
+```bash
+php bin/calc.php 3 4
+```
+
+### Composer script (JSON output):
+
+```bash
+composer run convert
+```
+
+### JSON output manually:
+
+```bash
+php bin/calc.php 3 4 --json > samples/output.json
+```
+
 ## Usage
 
-### Basic Conversion
-
-Convert a number to all supported formats:
+### Terminal Output
 
 ```bash
-# Using PHP directly
-php bin/converter.php 42
-
-# Using Composer script
-composer run convert 42
-
-# Output:
-# Decimal :42
-# Binary  :101010
-# Hexa    :2A
+php bin/calc.php 3 4
 ```
 
-### Bitwise Operations
-
-Perform bitwise operations along with conversion:
-
-```bash
-# Bitwise AND
-php bin/converter.php 42 --and=15
-# Output includes: AND :10
-
-# Bitwise OR
-php bin/converter.php 42 --or=7
-# Output includes: OR :47
-
-# Bitwise XOR
-php bin/converter.php 42 --xor=3
-# Output includes: XOR :41
-
-# Bitwise NOT
-php bin/converter.php 42 --not
-# Output includes: NOT :-43
-
-# Shift operations
-php bin/converter.php 42 --shift-left=2
-# Output includes: Shift Left:168
-
-php bin/converter.php 42 --shift-right=1
-# Output includes: Shift Right:21
+# Example output:
+# Input A : 3 (11)
+# Input B : 4 (100)
+# A AND B : 0 (0)
+# A OR B  : 7 (111)
+# A XOR B : 7 (111)
+# NOT A   : -4 (...)
+# NOT B   : -5 (...)
 ```
 
-### Multiple Operations
-
-You can combine multiple bitwise operations in a single command:
+### JSON Output
 
 ```bash
-php bin/converter.php 42 --and=15 --or=7 --xor=3 --not --shift-left=2 --shift-right=1
-
-# Output:
-# Decimal :42
-# Binary  :101010
-# Hexa    :2A
-# AND     :10
-# OR      :47
-# XOR     :41
-# NOT     :-43
-# Shift Left:168
-# Shift Right:21
+php bin/calc.php 3 4 --json > samples/output.json
 ```
 
-### Using with Composer
-
-When using the Composer script, use `--` to separate Composer arguments from script arguments:
-
-```bash
-composer run convert 42 -- --and=15 --or=7
+# Example content of samples/output.json:
+# [
+#   "Input A : 3 (11)",
+#   "Input B : 4 (100)",
+#   "A AND B : 0 (0)",
+#   "A OR B  : 7 (111)",
+#   "A XOR B : 7 (111)",
+#   "NOT A   : -4 (...)",
+#   "NOT B   : -5 (...)"
+# ]
 ```
 
-## Examples
+## Composer Script
 
-### Example 1: Basic Conversion
+The Composer "convert" script:
+
+- Clears previous samples/output.json
+- Reads numbers from samples/input.txt
+- Runs the converter in JSON mode
+- Saves output to samples/output.json
+
+Run:
+
 ```bash
-$ php bin/converter.php 255
-Decimal :255
-Binary  :11111111
-Hexa    :FF
+composer run convert
 ```
 
-### Example 2: Bitwise AND Operation
-```bash
-$ php bin/converter.php 42 --and=15
-Decimal :42
-Binary  :101010
-Hexa    :2A
-AND     :10
+### Example samples/input.txt
+
+```
+3 4
 ```
 
-### Example 3: Multiple Operations
-```bash
-$ php bin/converter.php 100 --and=50 --or=25 --shift-left=1
-Decimal :100
-Binary  :1100100
-Hexa    :64
-AND     :32
-OR      :125
-Shift Left:200
+### Example samples/output.json
+
+```json
+[
+  "Input A : 3 (11)",
+  "Input B : 4 (100)",
+  "A AND B : 0 (0)",
+  "A OR B  : 7 (111)",
+  "A XOR B : 7 (111)",
+  "NOT A   : -4 (...)",
+  "NOT B   : -5 (...)"
+]
 ```
 
 ## Architecture
 
-The project follows clean architecture principles:
+- `bin/calc.php` — CLI entry point with argument parsing
+- `src/NumberConverter.php` — Core converter class handling operations
+- `src/ConverterInterface.php` — Interface defining conversion methods
+- `src/FormatterTrait.php` — Trait for consistent line formatting
 
-- `bin/converter.php` - CLI entry point with argument parsing
-- `src/NumberConverter.php` - Main converter class implementing business logic
-- `src/ConverterInterface.php` - Interface defining conversion methods
-- `src/FormatterTrait.php` - Trait for consistent output formatting
+## Project Structure
 
-## Development
-
-### Project Structure
 ```
-Prototype/
+Realisation/
 ├── bin/
-│   └── converter.php       # CLI entry point
+│   └── calc.php
 ├── src/
 │   ├── ConverterInterface.php
 │   ├── FormatterTrait.php
 │   └── NumberConverter.php
+├── samples/
+│   ├── input.txt
+│   └── output.json
 ├── vendor/                 # Composer dependencies
 ├── composer.json
 └── composer.lock
 ```
 
-### Running Tests
+## Development
 
-The converter handles various edge cases and input validation. Test with different numbers and operation combinations to ensure reliability.
+- Test with different numbers to ensure correctness
+- Supports both terminal and JSON output
+- Handles invalid input gracefully
+- Follow PSR-12 coding standards
 
 ## Error Handling
 
-The tool provides clear error messages for invalid inputs:
+Clear error messages are displayed for:
 
-- Invalid or missing number arguments
+- Missing or invalid number arguments
 - Non-numeric inputs
-- Malformed command-line options
+- Improper command-line options
 
 ## License
 
-This project is open source. Please refer to the license file for more information.
-
-## Contributing
-
-Contributions are welcome! Please ensure your code follows PSR-12 coding standards and includes appropriate error handling.
+Open-source project. See the license file for details.
