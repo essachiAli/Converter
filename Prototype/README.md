@@ -24,7 +24,7 @@ A PHP command-line tool for converting numbers between different bases (decimal,
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/AZIZ-Soufiane/Converter.git
+git clone https://github.com/essachiAli/Converter
 cd Converter/Prototype
 ```
 
