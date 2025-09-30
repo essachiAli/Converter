@@ -1,0 +1,16 @@
+{
+  "name": "essachiali/converter",
+  "version": "1.0.0",
+  "description": "CLI tool to convert numbers to decimal, binary, and hexadecimal",
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "scripts": {
+    "start": "php bin/some.php"
+    },
+  "require": {
+    "php": ">=8.2"
+  }
+}
